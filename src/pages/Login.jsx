@@ -24,7 +24,7 @@ const Login = () => {
   const handleLogin = async () => {
     setLoading(true);
     await axios
-      .post(`/api/auth/login`, { email, password })
+      .post(`/api/auth/login`, { email, password },  {withCredentials: true})
       .then((res) => {
         console.log(res.data);
         setEmail("");
