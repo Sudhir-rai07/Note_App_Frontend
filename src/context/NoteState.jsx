@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import noteContext from "./contex";
-import axios from "axios";
+import axios from '../api/axios';
 import toast from "react-hot-toast";
-import {  useNavigate } from "react-router-dom";
 
 const NoteState = (props) => {
   const [loading,setLoading] = useState(false)
@@ -13,7 +12,7 @@ const NoteState = (props) => {
   // All notes
 const allNotes = async () =>{
   setLoading(true)
-  await axios.get(`/api/note/allnotes`)
+  await axios.get(`/api/note/allnotes`, {withCredentials: true})
   .then((res)=>{
     setNotes(res.data)
     setLoading(false)
@@ -22,26 +21,6 @@ const allNotes = async () =>{
     console.log(err.response)
   })
 }
-  // Add Note Completed --> AddNote Component
-
-  // Delete note :: Completed
-
-  // Update Note
-  const updateNote = async (title, description, id) => {
-    const userPayload = { title, description };
-    await axios
-      .put(`/api/note/updatenote/` + id, userPayload)
-      .then((response) => {
-        console.log(response);
-        toast.success("Note Updated");
-        setRefresh(prev => !prev)
-      })
-      .catch((err) => {
-        if (err.response) {
-          console.log(err.response.data);
-        }
-      });
-  };
 
   // Get user
   const getUser = async () => {
@@ -67,7 +46,6 @@ const allNotes = async () =>{
         user,
         allNotes,
         getUser,
-        updateNote,
         refresh,
         setRefresh, 
       }}

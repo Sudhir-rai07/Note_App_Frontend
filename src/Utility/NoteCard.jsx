@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../api/axios";
 import React, { useContext, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaFilePen } from "react-icons/fa6";
@@ -18,7 +18,7 @@ const NoteCard = ({ title, desc, id, time }) => {
 const deleteNote = async (id) =>{
   setLoading(true)
   await axios
-    .delete(`/api/note/deletenote/${id}`)
+    .delete(`/api/note/deletenote/${id}`, {withCredentials: true})
     .then((res)=>{
       console.log(res.data)
       console.log("note id : ", id)

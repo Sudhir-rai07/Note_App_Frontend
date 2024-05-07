@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, Navigate } from "react-router-dom";
-import axios from "axios";
+import React, {useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from '../api/axios';
 import bg from "../Images/bg.mp4";
 import toast, { Toaster } from "react-hot-toast";
 import noteContext from "../context/contex";
@@ -34,7 +34,7 @@ const Login = () => {
         navigate("/note");
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err.response);
         toast.error(err.response.data?.message);
       });
     setLoading(false);

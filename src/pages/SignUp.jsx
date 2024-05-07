@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from '../api/axios';
 import toast, { Toaster } from "react-hot-toast";
 import bg from "../Images/bg.mp4";
 import Loader from '../Utility/Loader'

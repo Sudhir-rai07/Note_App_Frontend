@@ -1,11 +1,32 @@
 import React, { useContext, useState } from "react";
 import { IoIosCloseCircle } from "react-icons/io";
+import axios from "../api/axios";
+import toast, { Toaster } from "react-hot-toast";
 import noteContext from "../context/contex";
 
+
 const UpdateModal = ({ title, desc, view, id, setView }) => {
-  const { updateNote } = useContext(noteContext);
+  const {setRefresh} = useContext(noteContext)
   const [eTitle, setETitle] = useState(title);
   const [eDesc, setEDesc] = useState(desc);
+
+    // Update Note
+    const updateNote = async (title, description, id) => {
+      const userPayload = { title, description };
+      await axios
+        .put(`/api/note/updatenote/` + id, userPayload)
+        .then((response) => {
+          console.log(response);
+          toast.success("Note Updated");
+          setRefresh(prev => !prev)
+        })
+        .catch((err) => {
+          if (err.response) {
+            console.log(err.response.data);
+          }
+        });
+        setView(false)
+    };
 
   return (
     <div
@@ -20,8 +41,9 @@ const UpdateModal = ({ title, desc, view, id, setView }) => {
         >
           <IoIosCloseCircle />
         </button>
+        <Toaster />
       </div>
-      <div className="flex flex-col">
+      <form onSubmit={(e) => {e.preventDefault();updateNote(eTitle, eDesc, id)}} className="flex flex-col">
         <input
           type="text"
           placeholder="title"
@@ -39,11 +61,10 @@ const UpdateModal = ({ title, desc, view, id, setView }) => {
         <button
           type="submit"
           className="py-2 mt-5 text-white transition-all duration-200 rounded-lg bg-violet-600 hover:bg-violet-500 active:scale-95 active:bg-violet-700"
-          onClick={(e) => {e.preventDefault();setView(false);updateNote(eTitle, eDesc, id)}}
         >
           Update
         </button>
-      </div>
+      </form>
     </div>
   );
 };
