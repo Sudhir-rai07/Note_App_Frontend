@@ -26,7 +26,7 @@ const allNotes = async () =>{
   const getUser = async () => {
     setLoading(true);
     await axios
-      .get(`/api/auth/getuser`)
+      .get(`/api/auth/getuser`, {withCredentials: true})
       .then(({ data }) => {
         setUser(data);
         console.log(user);

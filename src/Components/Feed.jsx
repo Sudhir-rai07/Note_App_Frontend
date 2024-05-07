@@ -3,7 +3,7 @@ import UserCard from "../Utility/UserCard";
 import NoteCard from "../Utility/NoteCard";
 import AddNoteForm from "../Utility/AddNoteForm";
 import noteContext from "../context/contex";
-import axios from "axios";
+import axios from "../api/axios";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Utility/Footer";
 import Loader from "../Utility/Loader";
