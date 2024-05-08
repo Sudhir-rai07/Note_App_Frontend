@@ -31,6 +31,7 @@ const Feed = () => {
   // Logout :: /api/auth/logout
   const logout = async () => {
     setLoading(true)
+    window.localStorage.removeItem("isLoggedIn");
     await axios
       .post(`/api/auth/logout`)
       .then((res) => {
