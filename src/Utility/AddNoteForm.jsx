@@ -38,7 +38,9 @@ const AddNoteForm = ({ view, viewMethod }) => {
         view ? "block" : "hidden"
       } py-8 px-4 absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%]`}
     >
+      <div className='text-center'>
       {loading && <Loader />}
+      </div>
       {/* {error && <h2 className="text-red-700">Error...</h2>} */}
       <form className="max-w-sm mx-auto " onSubmit={handleAddNote}>
         <div className="mb-5">

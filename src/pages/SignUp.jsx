@@ -31,7 +31,7 @@ useEffect(()=>{
     };
 
     if(!username || !password || !email || !confirmPassword || !gender) return toast.error("All fields are required")
-    
+      window.localStorage.removeItem("accessToken")
     setLoading(true)
     await axios
       .post(`/api/auth/signup`, userPayload)
@@ -46,7 +46,7 @@ useEffect(()=>{
         setLoading(false)
         window.localStorage.setItem("isLoggedIn", true)
         window.localStorage.setItem("accessToken", data?.token)
-        navigate("/note")
+        navigate("/login")
         }
       )
       .catch((err) => {
