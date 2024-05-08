@@ -2,6 +2,7 @@ import axios from '../api/axios';
 import React, { useContext, useState } from "react";
 import noteContext from "../context/contex";
 import toast, { Toaster } from "react-hot-toast";
+import Loader from './Loader';
 
 const AddNoteForm = ({ view, viewMethod }) => {
   const { setRefresh } = useContext(noteContext);
@@ -14,7 +15,7 @@ const AddNoteForm = ({ view, viewMethod }) => {
     e.preventDefault();
     setLoading(true);
     await axios
-      .post("/api/note/addnote", { title, description }, {withCredentials: true})
+      .post("/api/note/addnote", { title, description }, {headers: {'Authorization': "Bearer " +localStorage.getItem("accessToken")}}, {withCredentials: true})
       .then(({ data }) => {
         setTitle("")
         setDescription("")
@@ -26,8 +27,9 @@ const AddNoteForm = ({ view, viewMethod }) => {
       .catch((err) => {
         console.log(err.response);
         toast.error("Error")
-      });
-      setLoading(false)
+      })
+      .finally(()=> setLoading(false))
+      
   };
 
   return (
@@ -36,7 +38,7 @@ const AddNoteForm = ({ view, viewMethod }) => {
         view ? "block" : "hidden"
       } py-8 px-4 absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%]`}
     >
-      {loading && <h2 className='text-center'>Wait...</h2>}
+      {loading && <Loader />}
       {/* {error && <h2 className="text-red-700">Error...</h2>} */}
       <form className="max-w-sm mx-auto " onSubmit={handleAddNote}>
         <div className="mb-5">

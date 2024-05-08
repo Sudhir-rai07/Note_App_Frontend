@@ -12,7 +12,7 @@ const NoteState = (props) => {
   // All notes
 const allNotes = async () =>{
   setLoading(true)
-  await axios.get(`/api/note/allnotes`, {withCredentials: true})
+  await axios.get(`/api/note/allnotes`,{headers: {'Authorization': "Bearer " +localStorage.getItem("accessToken")}}, {withCredentials: true})
   .then((res)=>{
     setNotes(res.data)
     setLoading(false)
@@ -26,7 +26,7 @@ const allNotes = async () =>{
   const getUser = async () => {
     setLoading(true);
     await axios
-      .get(`/api/auth/getuser`, {withCredentials: true})
+      .get(`/api/auth/getuser`, {headers: {'Authorization': "Bearer " +localStorage.getItem("accessToken")}}, {withCredentials: true})
       .then(({ data }) => {
         setUser(data);
         console.log(user);

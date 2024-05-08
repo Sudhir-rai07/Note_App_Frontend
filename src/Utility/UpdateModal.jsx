@@ -14,7 +14,7 @@ const UpdateModal = ({ title, desc, view, id, setView }) => {
     const updateNote = async (title, description, id) => {
       const userPayload = { title, description };
       await axios
-        .put(`/api/note/updatenote/` + id, userPayload)
+        .put(`/api/note/updatenote/` + id, userPayload,{headers: {'Authorization': "Bearer " +localStorage.getItem("accessToken")}}, {withCredentials: true})
         .then((response) => {
           console.log(response);
           toast.success("Note Updated");

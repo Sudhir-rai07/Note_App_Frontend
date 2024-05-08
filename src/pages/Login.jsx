@@ -31,10 +31,11 @@ const Login = () => {
         setPassword("");
         setLoading(false);
         window.localStorage.setItem("isLoggedIn", true);
+        window.localStorage.setItem("accessToken", res?.data?.token);
         navigate("/note");
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
         toast.error(err.response.data?.message);
       });
     setLoading(false);

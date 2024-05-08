@@ -18,7 +18,7 @@ const NoteCard = ({ title, desc, id, time }) => {
 const deleteNote = async (id) =>{
   setLoading(true)
   await axios
-    .delete(`/api/note/deletenote/${id}`, {withCredentials: true})
+    .delete(`/api/note/deletenote/${id}`, {headers: {'Authorization': "Bearer " +localStorage.getItem("accessToken")}}, {withCredentials: true})
     .then((res)=>{
       console.log(res.data)
       console.log("note id : ", id)

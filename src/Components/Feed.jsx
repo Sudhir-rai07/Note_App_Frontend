@@ -31,19 +31,24 @@ const Feed = () => {
   // Logout :: /api/auth/logout
   const logout = async () => {
     setLoading(true)
-    window.localStorage.removeItem("isLoggedIn");
     await axios
-      .post(`/api/auth/logout`)
+      .post(`/api/auth/logout`, {headers: {'Authorization': "Bearer " +localStorage.getItem("accessToken")}}, {withCredentials: true})
       .then((res) => {
         console.log(res.data);
         console.log("Logged Out");
         window.localStorage.removeItem("isLoggedIn");
+        window.localStorage.removeItem("accessToken");
         setLoading(false)
         navigate("/");
       })
       .catch((err) => {
-        console.log(err.response);
-      });
+        console.log("hii")
+        if(err.response){
+          console.log(err.response)
+        }
+      }).finally(()=>{
+        setLoading(false)
+      })
 
     console.log("Hitted Logout");
   };

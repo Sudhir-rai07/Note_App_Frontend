@@ -42,8 +42,10 @@ useEffect(()=>{
         setConfirmPassword("")
         setGender("")
         toast.success(data?.message)
+        console.log(data)
         setLoading(false)
         window.localStorage.setItem("isLoggedIn", true)
+        window.localStorage.setItem("accessToken", data?.token)
         navigate("/note")
         }
       )
