@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "https://noteapp-backend-2wsd.onrender.com",
+    baseURL: "https://noteapp-backend-ul25.onrender.com",
     withCredentials: true,
 })
