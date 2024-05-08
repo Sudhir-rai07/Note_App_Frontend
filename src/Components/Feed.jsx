@@ -35,14 +35,13 @@ const Feed = () => {
       .post(`/api/auth/logout`, {headers: {'Authorization': "Bearer " +localStorage.getItem("accessToken")}}, {withCredentials: true})
       .then((res) => {
         console.log(res.data);
-        console.log("Logged Out");
         window.localStorage.removeItem("isLoggedIn");
         window.localStorage.removeItem("accessToken");
+        console.log("Logged Out");
         setLoading(false)
         navigate("/");
       })
       .catch((err) => {
-        console.log("hii")
         if(err.response){
           console.log(err.response)
         }
