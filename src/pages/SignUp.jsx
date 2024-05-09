@@ -31,6 +31,8 @@ useEffect(()=>{
     };
 
     if(!username || !password || !email || !confirmPassword || !gender) return toast.error("All fields are required")
+    
+      if(password != confirmPassword) return toast.error("Password does not match")
       window.localStorage.removeItem("accessToken")
     setLoading(true)
     await axios
@@ -50,10 +52,17 @@ useEffect(()=>{
         }
       )
       .catch((err) => {
+        console.log("object")
+        
         if(err.response){
           toast.error(err.response.data.message)
+        } else {
+          toast.error(err.message)
         }
-      });
+      })
+      .finally(()=>{
+        setLoading(false)
+      })
   };
 
 
@@ -74,20 +83,20 @@ useEffect(()=>{
       <Toaster />
       <div className="flex flex-col items-center justify-center w-full sm:flex-row sm:w-4/5 h-4/5">
         <div className="flex flex-col items-center justify-center mb-4 sm:mb-0">
-        {loadng &&  <Loader />}
           <h2 className="block text-xl font-semibold text-start sm:hidden">
             Be a member of <br className="hidden sm:block" />{" "}
             <span className="tracking-wider font-babas">
-              <span className="text-red-700"></span>_Notes
+              <span className="text-red-700"></span>X_Notes
             </span>
           </h2>
         </div>
-        {/* {loading && <h2>Wait...</h2>}
-        {error && <h2 className="text-red-700">Error...</h2>} */}
         <form
           className="relative flex flex-col items-center justify-center w-full h-full sm:w-1/2"
           onSubmit={handleSignUp}
         >
+        <div className="text-center">
+              {loadng && <Loader />  }
+            </div>
           <div className="w-[90%] px-4">
             <label htmlFor="username" className="text-[14px] font-semibold">
               Username
@@ -124,7 +133,7 @@ useEffect(()=>{
               type="password"
               placeholder=""
               id="password"
-              className="w-full px-2 py-3 mt-1 border border-gray-200/[0.9] outline-none rounded-lg text-sm focus:outline-none focus:shadow-[0px_0px_2px_1px_#fbb6ce] focus:border-[#f687b3]/[0.8] hover:shadow-[0px_0px_3px_1px_#fed7e2] transition-all duration-200"
+              className={`w-full px-2 py-3 mt-1 border border-gray-200/[0.9] outline-none rounded-lg text-sm focus:outline-none focus:shadow-[0px_0px_2px_1px_#fbb6ce] focus:border-[#f687b3]/[0.8] hover:shadow-[0px_0px_3px_1px_#fed7e2] transition-all duration-200`}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

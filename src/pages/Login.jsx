@@ -11,9 +11,8 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
-  // Fucked Up with this
+
   useEffect(() => {
     if (window.localStorage.getItem("isLoggedIn")) {
       return navigate("/note");
@@ -36,9 +35,14 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(err.response.data?.message);
-      });
-    setLoading(false);
+        if(err.response){
+          toast.error(err.response.data.message)
+        }else {
+          toast.error(err.message)
+        }
+      })
+      .finally(()=>{setLoading(false);})
+    
   };
   return (
     <div className="flex items-center justify-center w-full h-screen bg-[#151314] text-white sm:justify-start">
