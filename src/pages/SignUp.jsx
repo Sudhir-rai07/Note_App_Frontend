@@ -4,6 +4,7 @@ import axios from '../api/axios';
 import toast, { Toaster } from "react-hot-toast";
 import bg from "../Images/bg.mp4";
 import Loader from '../Utility/Loader'
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -12,6 +13,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [gender, setGender] = useState("");
   const [loadng, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const navigate = useNavigate()
 useEffect(()=>{
@@ -19,6 +21,11 @@ useEffect(()=>{
     return navigate("/note")
   }
 }, [])
+
+const handlePasswordView = () =>{
+  setShowPassword(prev => !prev)
+}
+
   const handleSignUp = async (e) => {
     e.preventDefault();
     // setLoading(true)
@@ -130,7 +137,7 @@ useEffect(()=>{
               </label>
             </div>
             <input
-              type="password"
+               type={showPassword ? "text": "password"}
               placeholder=""
               id="password"
               className={`w-full px-2 py-3 mt-1 border border-gray-200/[0.9] outline-none rounded-lg text-sm focus:outline-none focus:shadow-[0px_0px_2px_1px_#fbb6ce] focus:border-[#f687b3]/[0.8] hover:shadow-[0px_0px_3px_1px_#fed7e2] transition-all duration-200`}
@@ -138,7 +145,7 @@ useEffect(()=>{
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="w-[90%] px-4 mt-2">
+          <div className="w-[90%] px-4 mt-2 relative">
             <div className="flex justify-between">
               <label
                 htmlFor="confirmPassword"
@@ -148,13 +155,16 @@ useEffect(()=>{
               </label>
             </div>
             <input
-              type="password"
+               type={showPassword ? "text": "password"}
               placeholder=""
               id="confirmPassword"
               className="w-full px-2 py-3 mt-1 border border-gray-200/[0.9] outline-none rounded-lg text-sm focus:outline-none focus:shadow-[0px_0px_2px_1px_#fbb6ce] focus:border-[#f687b3]/[0.8] hover:shadow-[0px_0px_3px_1px_#fed7e2] transition-all duration-200"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
+            <div className="absolute text-black cursor-pointer right-5 top-10" onClick={handlePasswordView}>
+              {showPassword ? <FaEyeSlash />: <FaEye />}
+            </div>
           </div>
 
           <div className="flex justify-start w-4/5 mt-2">

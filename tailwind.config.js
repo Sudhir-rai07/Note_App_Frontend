@@ -6,7 +6,8 @@ export default {
     extend: {
       fontFamily:{
         mukta:  ['"Mukta"', 'sans-serif'],
-        poppins:  ["Poppins", 'sans-serif']
+        poppins:  ["Poppins", 'sans-serif'],
+        Bebas_Neue:  ["Bebas Neue", 'sans-serif']
       }
     },
   },

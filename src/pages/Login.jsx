@@ -3,14 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from '../api/axios';
 import bg from "../Images/bg.mp4";
 import toast, { Toaster } from "react-hot-toast";
-import noteContext from "../context/contex";
 import Loader from "../Utility/Loader";
+import { FaEye } from "react-icons/fa6";
+import { FaEyeSlash } from "react-icons/fa6";
 
 const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false)
 
 
   useEffect(() => {
@@ -18,6 +20,10 @@ const Login = () => {
       return navigate("/note");
     }
   }, []);
+
+  const handlePasswordView = () =>{
+    setShowPassword(prev => !prev)
+  }
 
   // handle login api :: /api/auth/login
   const handleLogin = async () => {
@@ -92,7 +98,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="w-4/5 px-4 mt-8">
+          <div className="relative w-4/5 px-4 mt-8">
             <div className="flex justify-between">
               <label htmlFor="password" className="text-[14px] font-semibold">
                 Password
@@ -102,7 +108,7 @@ const Login = () => {
               </span>
             </div>
             <input
-              type="password"
+              type={showPassword ? "text": "password"}
               placeholder=""
               id="password"
               name="password"
@@ -110,7 +116,9 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {/* {error && <h2 className="text-red-500">Error</h2>} */}
+            <div className="absolute text-black cursor-pointer right-5 top-10" onClick={handlePasswordView}>
+              {showPassword ? <FaEyeSlash />: <FaEye />}
+            </div>
           </div>
 
           <div className="flex flex-col items-center justify-center w-4/5 ">

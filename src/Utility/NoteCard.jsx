@@ -6,6 +6,7 @@ import { MdDeleteSweep } from "react-icons/md";
 import noteContext from "../context/contex";
 import UpdateModal from "./UpdateModal";
 
+
 const NoteCard = ({ title, desc, id, time }) => {
   const {notes, setNotes} = useContext(noteContext)
   const [view, setView] = useState(false);
@@ -37,7 +38,7 @@ const deleteNote = async (id) =>{
     <div className="flex flex-col w-56 px-4 py-4 mx-2 my-2 border-2 border-gray-500 rounded-lg bg-slate-800 hover:shadow-white hover:shadow-sm">
       <Toaster />
       <div className="text-2xl">
-        <h2 className="tracking-widest">{title}</h2>
+        <h2 className="font-Bebas_Neue">{title}</h2>
       </div>
       <div className="text-gray-400">
         <p>
